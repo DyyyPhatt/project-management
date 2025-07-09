@@ -27,8 +27,10 @@ const Search = () => {
   );
 
   useEffect(() => {
-    return handleSearch.cancel;
-  }, [handleSearch.cancel]);
+    return () => {
+      handleSearch.cancel();
+    };
+  }, [handleSearch]);
 
   return (
     <div className="p-6 sm:p-8">
@@ -54,44 +56,47 @@ const Search = () => {
 
         {!isLoading && !isError && searchResults && (
           <div className="space-y-10">
-            {searchResults.tasks?.length > 0 && (
-              <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
-                  Tasks
-                </h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {searchResults.tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} />
-                  ))}
-                </div>
-              </section>
-            )}
+            {Array.isArray(searchResults.tasks) &&
+              searchResults.tasks.length > 0 && (
+                <section>
+                  <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
+                    Tasks
+                  </h2>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {searchResults.tasks.map((task) => (
+                      <TaskCard key={task.id} task={task} />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            {searchResults.projects?.length > 0 && (
-              <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
-                  Projects
-                </h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {searchResults.projects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
-              </section>
-            )}
+            {Array.isArray(searchResults.projects) &&
+              searchResults.projects.length > 0 && (
+                <section>
+                  <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
+                    Projects
+                  </h2>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {searchResults.projects.map((project) => (
+                      <ProjectCard key={project.id} project={project} />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            {searchResults.users?.length > 0 && (
-              <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
-                  Users
-                </h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {searchResults.users.map((user) => (
-                    <UserCard key={user.userId} user={user} />
-                  ))}
-                </div>
-              </section>
-            )}
+            {Array.isArray(searchResults.users) &&
+              searchResults.users.length > 0 && (
+                <section>
+                  <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-white">
+                    Users
+                  </h2>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {searchResults.users.map((user) => (
+                      <UserCard key={user.userId} user={user} />
+                    ))}
+                  </div>
+                </section>
+              )}
           </div>
         )}
       </div>

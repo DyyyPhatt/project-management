@@ -102,7 +102,9 @@ const TaskColumn = ({
 
   return (
     <div
-      ref={drop}
+      ref={(node) => {
+        if (node) drop(node);
+      }}
       className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? "bg-blue-100 dark:bg-neutral-950" : ""}`}
     >
       <div className="mb-3 flex w-full">
@@ -188,7 +190,9 @@ const Task = ({ task, onDelete }: TaskProps) => {
 
   return (
     <div
-      ref={drag}
+      ref={(node) => {
+        if (node) drag(node);
+      }}
       className={`dark:bg-dark-secondary mb-4 rounded-md bg-white shadow ${
         isDragging ? "opacity-50" : "opacity-100"
       }`}
